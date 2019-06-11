@@ -1,0 +1,31 @@
+server:
+  port: 18801
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+    register-with-eureka: true
+spring:
+  application:
+    name: people-provider
+movie-provider:
+  ribbon:
+    ###负载均衡策略 -随机
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
+    ###每台服务器最多重试次数，首次调用不计算在内
+    MaxAutoRetries: 1
+    ###最多重试多少台服务器
+    MaxAutoRetriesNextServer: 1
+    ###无论是超时或socket read Timeout都进行重试
+    OkToRetryOnAllOperations: true
+    ###Interval to refresh the server list from the source
+    ServerListRefreshInterval: 2000
+    ###Connect timeout used by Apache HttpClient
+    ConnectTimeout: 3000
+    ###Read timeout used by Apache HttpClient
+    ReadTimeout: 3000
+###预加载配置 默认为懒加载
+ribbon:
+  eager-load:
+    enabled: true
+    clients: movie-provider
