@@ -7,10 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-@RestController
+@Controller
 @Slf4j
 public class PeopleController {
     @Autowired
@@ -27,7 +28,13 @@ public class PeopleController {
 //        return this.restTemplate.getForObject("http://movie-provider/"+id,Movie.class);
 //    }
 
+    @RequestMapping("/movie/index")
+    public String movieIndex(){
+        return "movie";
+    }
+
     @RequestMapping("/movie/getChoosedService")
+    @ResponseBody
     public String getChoosedService(){
         ServiceInstance serviceInstance =
                 this.loadBalancerClient.choose("movie-provider");
@@ -39,11 +46,26 @@ public class PeopleController {
     }
 
     @RequestMapping("/movie/{id}")
+    @ResponseBody
     public Movie getMovieById(@PathVariable("id") Long id){
         return this.movieFeignClient.getMovieById(id);
     }
 
+    @GetMapping("/movie/insertMovie")
+    @ResponseBody
+    public Integer insertMovie(@RequestParam String name,@RequestParam Integer count,@RequestParam double balance){
+        log.info("name:"+name);
+        log.info("count:"+count);
+        log.info("balance:"+balance);
+        Movie movie = new Movie();
+        movie.setName(name);
+        movie.setCount(count);
+        movie.setBalance(balance);
+        return movieFeignClient.InsertMovie(movie);
+    }
+
     @RequestMapping(value = "/search/repositories",method = RequestMethod.GET)
+    @ResponseBody
     public String SearchRepo(@RequestParam("q") String q){
         return gitHubFeignClient.SearchRepo(q);
     }

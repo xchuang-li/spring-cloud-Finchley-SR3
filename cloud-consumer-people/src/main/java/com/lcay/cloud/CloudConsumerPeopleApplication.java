@@ -20,6 +20,7 @@ public class CloudConsumerPeopleApplication {
         return  new RestTemplate();
     }
 
+
 //    @Bean
 //    public IRule ribbonRule(){
 //        return new RandomRule();

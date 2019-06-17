@@ -10,7 +10,7 @@ spring:
     name: people-provider
 movie-provider:
   ribbon:
-    ###负载均衡策略 -随机
+    ###负载均衡策略 -轮询
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
     ###每台服务器最多重试次数，首次调用不计算在内
     MaxAutoRetries: 1
@@ -29,3 +29,6 @@ ribbon:
   eager-load:
     enabled: true
     clients: movie-provider
+logging:
+  level:
+    com.lcay.cloud.feign: debug

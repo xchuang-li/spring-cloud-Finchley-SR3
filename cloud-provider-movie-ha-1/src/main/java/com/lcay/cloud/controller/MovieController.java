@@ -3,9 +3,7 @@ package com.lcay.cloud.controller;
 import com.lcay.cloud.entity.Movie;
 import com.lcay.cloud.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MovieController {
@@ -15,5 +13,10 @@ public class MovieController {
     @RequestMapping("/{id}")
     public Movie queryMovieById(@PathVariable Integer id){
         return movieService.queryMovieById(id);
+    }
+
+    @RequestMapping(value = "/insertMovie",method = RequestMethod.POST)
+    public Integer insertMovie(@RequestBody Movie movie){
+        return movieService.insertMovie(movie);
     }
 }
