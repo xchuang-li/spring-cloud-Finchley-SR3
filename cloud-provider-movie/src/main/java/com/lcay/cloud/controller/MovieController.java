@@ -15,7 +15,7 @@ public class MovieController {
         return movieService.queryMovieById(id);
     }
 
-    @RequestMapping(value = "/insertMovie",method = RequestMethod.POST)
+    @RequestMapping(value = "/insertMovie",method = RequestMethod.POST,consumes = "application/json")
     public Integer insertMovie(@RequestBody Movie movie){
         return movieService.insertMovie(movie);
     }

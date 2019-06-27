@@ -1,0 +1,34 @@
+server:
+  port: 18831
+spring:
+  application:
+    name: cloud-zuul-service
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+###将zuul注册到eureka server上，则zuul会默认代理注册列表中的微服务
+###路由规则为http://zuulserver:zuulport/serviceId/**
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka/
+zuul:
+  routes:
+    movie-provider: /movie/**
+    people-provider: /people/**
+  ###忽略所有微服务
+  ###此配置项，可以使zuul不再代理任何微服务，但是如果routes:配置存在时，则仍然代理routes:配置的微服务
+  ###用于只代理个别微服务的场景
+  ### 注意：默认情况下，除了配置的routes:,zuul还自动代理了原始的serviceId，如：http://localhost:18831/movie-provide/1
+  ### 该配置会使默认serviceId代理也失效
+  ignored-services: '*'
+  ###
+#  prefix: /api
+#  strip-prefix: false
+  ###负略满足该规则的url请求，例如http://localhost:18831/api/admin/movie/1
+  ignored-patterns: /**/admin/**
+logging:
+  level:
+    com.netflix: debug

@@ -2,12 +2,15 @@ spring:
   application:
     name: eureka-server
 server:
-  port: 8001
+  port: 8000
 eureka:
-  instance:
-    hostname: localhost
   client:
     service-url:
-      defaultZone: http://localhost:8001/eureka/
+      defaultZone: http://localhost:8000/eureka/
+    ###是否从其他eureka server同步注册信息
     fetch-registry: false
+    ###是否注册到eureka server
     register-with-eureka: false
+  server:
+    ###是否开启自我保护机制
+    enable-self-preservation: true

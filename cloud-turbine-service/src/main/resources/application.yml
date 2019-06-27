@@ -1,0 +1,14 @@
+server:
+  port: 18822
+spring:
+  application:
+    name: cloud-turbine-service
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka/
+  instance:
+    prefer-ip-address: true
+turbine:
+  app-config: people-provider,people-provider-ha
+  cluster-name-expression: "'default'"

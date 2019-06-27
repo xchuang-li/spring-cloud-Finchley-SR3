@@ -1,10 +1,13 @@
 server:
-  port: 18801
+  port: 18811
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8001/eureka/
+      defaultZone: http://localhost:8000/eureka/
     register-with-eureka: true
+  instance:
+    metadata-map:
+      cluster: PEOPLE
 spring:
   application:
     name: people-provider
@@ -32,3 +35,26 @@ ribbon:
 logging:
   level:
     com.lcay.cloud.feign: debug
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000 #连接超时
+        readTimeout: 5000 #读取超时
+        loggerLevel: full #日志级别
+  hystrix:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
