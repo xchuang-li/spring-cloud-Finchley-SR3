@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    config:
+#      uri: http://localhost:18841/
+      profile: dev
+      label: master
+      ###如果客户端无法连接上服务端，则客户端将以异常停止
+      fail-fast: true
+      ###利用服务发现组件，将服务端注册到eureka上，这样，就可以保证服务端的高可用
+      ###此处，开启客户端的服务发现支持，并指定服务端的serviceId
+      discovery:
+        enabled: true
+        service-id: config-server
+###注意，因为bootstrap.yml的加载优先于application.yml，所以服务注册要写在bootstrap.yml中
+###否则，加载bootstrap.yml时，因为尚未注册到eureka server，也就无法找到服务端的serviceId
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka/

@@ -16,6 +16,10 @@ eureka:
       defaultZone: http://localhost:8000/eureka/
 zuul:
   routes:
+#  一种写法，效果同下
+#    api-a:
+#      path: /movie/**
+#      serviceId: movie-provider
     movie-provider: /movie/**
     people-provider: /people/**
   ###忽略所有微服务

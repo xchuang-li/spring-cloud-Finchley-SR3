@@ -1,0 +1,31 @@
+server:
+  port: 18871
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/xchuang-li/config-infomation.git
+          ###有时，配置文件可能在仓库的子目录下，此配置可以搜索对应的子目录，如foo,bar*
+          search-paths: /**
+          username: xchuang-li
+          password: Lcay110802
+          ###默认在第一次请求时克隆仓库，此配置可在启动时就克隆仓库
+          clone-on-start: true
+          ###多种匹配模式，如果没有任何一个模式匹配，则使用默认的uri: https://github.com/xchuang-li/config-infomation.git
+#          repos:
+#            ###uri支持使用占位符，这样可以定义一个应用使用一个仓库
+#            simple: https://github.com/simple/config-repo/{application}
+#            special:
+#              pattern: special*/dev*,*special*/dev*
+#              uri: https://github.com/special/config-repo
+#            local:
+#              ###该模式匹配所有{application}的名字以local开头的
+#              pattern: local*
+#              ###file: 代表从本地文件系统查找
+#              uri: file:/home/configsvc/config-repo
+        ###全局默认仓库分支，也可以写在对应匹配模式下
+
+        default-label: master

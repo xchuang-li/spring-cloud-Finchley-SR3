@@ -1,0 +1,13 @@
+server:
+  port: 18802
+spring:
+  application:
+    name: sleuth-service-received
+  sleuth:
+    sampler:
+      probability: 1
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest

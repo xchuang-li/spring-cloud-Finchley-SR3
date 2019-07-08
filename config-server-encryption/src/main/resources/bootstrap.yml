@@ -1,0 +1,4 @@
+###注意，该内容须写在bootstrap.yml中
+encrypt:
+  ###秘钥
+  key: global

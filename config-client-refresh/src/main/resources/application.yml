@@ -1,0 +1,10 @@
+server:
+  port: 18842
+spring:
+  application:
+    name: global-foo
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
